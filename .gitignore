@@ -1,0 +1,89 @@
+########################################
+# OS / System
+########################################
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+########################################
+# Logs
+########################################
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+########################################
+# Environment / Secrets
+########################################
+.env
+.env.*
+!.env.example
+
+########################################
+# Node / Web (Frontend)
+########################################
+node_modules/
+dist/
+build/
+.tmp/
+.cache/
+coverage/
+
+# Optional package managers
+.pnpm-store/
+.npm/
+.yarn/
+.yarn-cache/
+.yarnrc
+
+########################################
+# Cordova / Mobile
+########################################
+platforms/
+plugins/
+# www/
+# If www is your built output. Remove if it's your source.
+
+# Cordova build artifacts
+*.apk
+*.aab
+*.ipa
+
+# Cordova config backups
+config.xml.bak
+
+########################################
+# PHP / Slim API
+########################################
+vendor/
+# composer.lock
+
+# Cache / sessions
+storage/
+cache/
+*.cache
+
+########################################
+# IDE / Editor
+########################################
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+########################################
+# Testing / Coverage
+########################################
+coverage/
+.phpunit.result.cache
+
+########################################
+# Misc
+########################################
+*.swp
+*.swo
+*~
