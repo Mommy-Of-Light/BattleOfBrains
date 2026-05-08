@@ -66,8 +66,9 @@ vendor/
 storage/
 cache/
 *.cache
-/api/users/data/session.json
-/api/users/data/users.json
+
+# Ignore JSON files that may contain sensitive data, such as session.json or rooms.json. Remove this line if you want to keep them in version control.
+*.json
 
 ########################################
 # IDE / Editor
