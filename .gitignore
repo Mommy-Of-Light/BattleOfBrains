@@ -67,6 +67,7 @@ storage/
 cache/
 *.cache
 /api/users/data/session.json
+/api/users/data/users.json
 
 ########################################
 # IDE / Editor
