@@ -66,6 +66,7 @@ vendor/
 storage/
 cache/
 *.cache
+/api/users/data/session.json
 
 ########################################
 # IDE / Editor
