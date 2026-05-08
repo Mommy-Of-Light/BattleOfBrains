@@ -7,13 +7,13 @@ header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers
 
 switch ($_SERVER['REQUEST_METHOD']) {
     case 'POST':
-        // get the posted data
         $data = json_decode(file_get_contents("php://input"), true);
         if (isset($data['username']) && isset($data['password'])) {
             $username = $data['username'];
             $password = $data['password'];
 
             $db_file = 'data/users.json';
+            $session_file = 'data/session.json';
             $users = [];
 
             if (file_exists($db_file)) {
@@ -25,9 +25,13 @@ switch ($_SERVER['REQUEST_METHOD']) {
                     if (password_verify($password, $user['password'])) {
                         http_response_code(200);
                         echo json_encode(array("message" => "Login successful."));
-                        // put all user data in the file data/session.json
                         $session_data = array("username" => $username);
-                        file_put_contents('data/session.json', json_encode($session_data));
+
+                        if (!file_exists($session_file)) {
+                            file_put_contents($session_file, json_encode(array()));
+                        }
+
+                        file_put_contents($session_file, json_encode($session_data));
                     } else {
                         http_response_code(401);
                         echo json_encode(array("message" => "Invalid password."));

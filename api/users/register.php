@@ -21,7 +21,7 @@ switch ($_SERVER['REQUEST_METHOD']) {
             foreach ($users as $user) {
                 if ($user['username'] === $username) {
                     http_response_code(400);
-                    echo json_encode(array("message" => "Username already exists."));
+                    echo json_encode(array("message" => "Username not valid."));
                     exit();
                 }
             }
