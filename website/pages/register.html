@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Battle Of Brains | Register</title>
+    <link rel="stylesheet" href="../css/bootstrap.css">
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+</head>
+
+<body class="bg-light min-vh-100 d-flex align-items-center">
+    <main class="container">
+        <div class="row justify-content-center">
+            <div class="col-12 col-sm-10 col-md-8 col-lg-5 col-xl-4">
+                <div class="card shadow-lg border-0 rounded-4">
+                    <div class="card-body p-4 p-md-5">
+                        <div class="text-center mb-4">
+                            <h1 class="h3 fw-bold mb-2">Create account</h1>
+                            <p class="text-muted mb-0">Join Battle Of Brains and start playing.</p>
+                        </div>
+
+                        <form method="post" id="registerForm" class="d-grid gap-3">
+                            <div>
+                                <label for="username" class="form-label fw-semibold">Username</label>
+                                <input type="text" class="form-control form-control-lg" name="username" id="username" value="" placeholder="Choose a username">
+                            </div>
+                            <div>
+                                <label for="password" class="form-label fw-semibold">Password</label>
+                                <input type="password" class="form-control form-control-lg" name="password" id="password" value="" placeholder="Create a password">
+                            </div>
+
+                            <button type="submit" class="btn btn-primary btn-lg">Register</button>
+                            <button id="cancel" type="button" class="btn btn-outline-secondary btn-lg">Cancel</button>
+
+                            <p class="text-center mb-0">
+                                <a href="login.html" id="register" class="link-primary text-decoration-none">Already have an account?</a>
+                            </p>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <script src="../js/main.js"></script>
+</body>
+</html>

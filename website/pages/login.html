@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Battle Of Brains | Login</title>
+    <link rel="stylesheet" href="../css/bootstrap.css">
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+</head>
+
+<body class="bg-light min-vh-100 d-flex align-items-center">
+    <main class="container">
+        <div class="row justify-content-center">
+            <div class="col-12 col-sm-10 col-md-8 col-lg-5 col-xl-4">
+                <div class="card shadow-lg border-0 rounded-4">
+                    <div class="card-body p-4 p-md-5">
+                        <div class="text-center mb-4">
+                            <h1 class="h3 fw-bold mb-2">Welcome back</h1>
+                            <p class="text-muted mb-0">Sign in to continue your game.</p>
+                        </div>
+
+                        <form method="post" id="loginForm" class="d-grid gap-3">
+                            <div>
+                                <label for="username" class="form-label fw-semibold">Username</label>
+                                <input type="text" class="form-control form-control-lg" name="username" id="username" value="" placeholder="Enter your username">
+                            </div>
+                            <div>
+                                <label for="password" class="form-label fw-semibold">Password</label>
+                                <input type="password" class="form-control form-control-lg" name="password" id="password" value="" placeholder="Enter your password">
+                            </div>
+
+                            <button type="submit" class="btn btn-primary btn-lg">Login</button>
+                            <button id="cancel" type="button" class="btn btn-outline-secondary btn-lg">Cancel</button>
+
+                            <p class="text-center mb-0">
+                                <a href="register.html" id="register" class="link-primary text-decoration-none">Create an account</a>
+                            </p>
+                        </form>
+
+                        <div class="d-grid mt-4">
+                            <button id="admLog" type="button" class="btn btn-outline-dark">Log as admin</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <script src="../js/main.js"></script>
+    <script>
+        document.getElementById("admLog").addEventListener("click", async () => {
+            const username = "Creator";
+            const password = "super";
+
+            console.log("Login attempt with username:", username);
+            console.log("Login attempt with password:", password);
+
+            try {
+                const response = await apiRequest("users/", "POST", { username, password });
+                localStorage.setItem("userId", response.user.id);
+                window.location.href = "../index.html";
+            } catch (error) {
+                alert(error.message);
+            }
+        });
+    </script>
+</body>
+
+</html>
