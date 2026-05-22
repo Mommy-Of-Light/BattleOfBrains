@@ -13,16 +13,16 @@ if (isset($data['name']) && !empty($data['name'])) {
         $session = json_decode(file_get_contents($session_file), true);
     }
 
-    if (isset($session['username'])) {
-        $adminUsername = $session['username'];
+    if (isset($session['id'])) {
+        $adminId = $session['id'];
     } else {
-        $adminUsername = "admin";
+        $adminId = "admin";
     }
 
     $newRoom = [
         "id" => $roomID,
         "name" => $data['name'],
-        "admin" => $adminUsername,
+        "admin" => $adminId,
         "players" => [],
         "questions" => []
     ];

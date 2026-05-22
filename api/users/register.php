@@ -19,7 +19,7 @@ if (isset($data['username']) && isset($data['password'])) {
         }
     }
 
-    $users[] = array("username" => $username, "password" => $password, "role" => "student");
+    $users[] = array("id" => count($users) + 1, "username" => $username, "password" => $password, "role" => "student");
 
     file_put_contents($db_file, json_encode($users, JSON_PRETTY_PRINT));
 

@@ -10,17 +10,19 @@ if (file_exists($session_file)) {
     $session = [];
 }
 
-if (isset($session['username'])) {
-    $username = $session['username'];
+if (isset($session['id'])) {
+    $id = $session['id'];
 } else {
     http_response_code(401);
     echo json_encode(array("message" => "Unauthorized. Please log in."), JSON_PRETTY_PRINT);
     exit();
 }
 
-if (isset($data['roomID'])) {
+if (filter_input(INPUT_GET, 'roomID', FILTER_SANITIZE_STRING)) {
     $rooms_file = 'data/rooms.json';
     $rooms = [];
+
+    $data['roomID'] = filter_input(INPUT_GET, 'roomID', FILTER_SANITIZE_STRING);
 
     if (file_exists($rooms_file)) {
         $rooms = json_decode(file_get_contents($rooms_file), true);
@@ -28,7 +30,7 @@ if (isset($data['roomID'])) {
 
     foreach ($rooms as $index => $room) {
         if ($room['id'] === $data['roomID']) {
-            if ($room['admin'] !== $username) {
+            if ($room['admin'] !== $id) {
                 http_response_code(403);
                 echo json_encode(array("message" => "Only the admin can delete the room."), JSON_PRETTY_PRINT);
                 exit();

@@ -1,10 +1,20 @@
 <?php
 
+require_once 'utils.php';
+
 // cors headers
 header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json; charset=UTF-8");
 header("Access-Control-Allow-Methods: *, OPTIONS");
 header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
+
+$session = get_session();
+
+if (!isset($session['username'])) {
+    http_response_code(401);
+    echo json_encode(["message" => "Unauthorized. Please log in."]);
+    exit();
+}
 
 switch ($_SERVER['REQUEST_METHOD']) {
     case 'GET':

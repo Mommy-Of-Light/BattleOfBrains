@@ -3,10 +3,14 @@
 // cors headers
 header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json; charset=UTF-8");
-header("Access-Control-Allow-Methods: *, OPTIONS");
+header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");
 header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
 
 switch ($_SERVER['REQUEST_METHOD']) {
+    case 'GET':
+        include 'getUser.php';
+        break;
+
     case 'POST':
         include 'connexion.php';
         break;

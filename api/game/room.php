@@ -1,6 +1,6 @@
 <?php
 
-$roomID = isset($_GET['id']) ? $_GET['id'] : null;
+$roomID = isset($_GET['roomID']) ? $_GET['roomID'] : null;
 
 if ($roomID) {
     $rooms_file = 'data/rooms.json';

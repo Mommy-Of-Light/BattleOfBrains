@@ -1,46 +1,23 @@
 <?php
 
+require_once 'utils.php';
+
 // cors headers
 header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json; charset=UTF-8");
 header("Access-Control-Allow-Methods: *, OPTIONS");
 header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
 
-
-// Helper function to get session
-function get_session() {
-    $session_file = '../users/data/session.json';
-    if (file_exists($session_file)) {
-        return json_decode(file_get_contents($session_file), true);
-    }
-    return [];
-}
-
-// Helper function to get rooms
-function get_rooms() {
-    $rooms_file = 'data/rooms.json';
-    if (file_exists($rooms_file)) {
-        return json_decode(file_get_contents($rooms_file), true);
-    }
-    return [];
-}
-
-// Helper function to save rooms
-function save_rooms($rooms) {
-    $rooms_file = 'data/rooms.json';
-    file_put_contents($rooms_file, json_encode($rooms, JSON_PRETTY_PRINT));
-}
-
 $method = $_SERVER['REQUEST_METHOD'];
 $session = get_session();
 
-if (!isset($session['username'])) {
+if (!isset($session['id'])) {
     http_response_code(401);
     echo json_encode(["message" => "Unauthorized. Please log in."]);
     exit();
 }
 
-$username = $session['username'];
+$id = $session['id'];
 $role = $session['role'];
 
 if ($method === 'GET') {
@@ -72,14 +49,14 @@ if ($method === 'POST') {
         echo json_encode(["message" => "Students can only view questions."]);
         exit();
     }
-    if (!isset($data['roomID'], $data['question'], $data['options'], $data['answer'])) {
+    if (!isset($data['question'], $data['options'], $data['answer']) || !isset($_GET['roomID'])) {
         http_response_code(400);
         echo json_encode(["message" => "Room ID, question, options and answer are required."]);
         exit();
     }
     $rooms = get_rooms();
     foreach ($rooms as &$room) {
-        if ($room['id'] === $data['roomID']) {
+        if ($room['id'] === $_GET['roomID']) {
             $newQuestion = [
                 "id" => uniqid(),
                 "question" => $data['question'],
@@ -106,16 +83,16 @@ if ($method === 'PUT') {
         echo json_encode(["message" => "Students can only view questions."]);
         exit();
     }
-    if (!isset($data['roomID'], $data['questionID'], $data['question'], $data['options'], $data['answer'])) {
+    if (!isset($data['question'], $data['options'], $data['answer']) && !isset($_GET['roomID']) && !isset($_GET['questionID'])) {
         http_response_code(400);
         echo json_encode(["message" => "Room ID, question ID, question, options and answer are required."]);
         exit();
     }
     $rooms = get_rooms();
     foreach ($rooms as &$room) {
-        if ($room['id'] === $data['roomID']) {
+        if ($room['id'] === $_GET['roomID']) {
             foreach ($room['questions'] as &$question) {
-                if ($question['id'] === $data['questionID']) {
+                if ($question['id'] === $_GET['questionID']) {
                     $question['question'] = $data['question'];
                     $question['options'] = $data['options'];
                     $question['answer'] = $data['answer'];
@@ -143,16 +120,16 @@ if ($method === 'DELETE') {
         echo json_encode(["message" => "Students can only view questions."]);
         exit();
     }
-    if (!isset($data['roomID'], $data['questionID'])) {
+    if (!isset($_GET['roomID'], $_GET['questionID'])) {
         http_response_code(400);
         echo json_encode(["message" => "Room ID and question ID are required."]);
         exit();
     }
     $rooms = get_rooms();
     foreach ($rooms as &$room) {
-        if ($room['id'] === $data['roomID']) {
+        if ($room['id'] === $_GET['roomID']) {
             foreach ($room['questions'] as $key => $question) {
-                if ($question['id'] === $data['questionID']) {
+                if ($question['id'] === $_GET['questionID']) {
                     unset($room['questions'][$key]);
                     $room['questions'] = array_values($room['questions']);
                     save_rooms($rooms);

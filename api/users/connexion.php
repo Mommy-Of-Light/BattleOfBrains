@@ -11,14 +11,16 @@ if (isset($data['username']) && isset($data['password'])) {
 
     if (file_exists($db_file)) {
         $users = json_decode(file_get_contents($db_file), true);
+    } else {
+        file_put_contents($db_file, json_encode(array(), JSON_PRETTY_PRINT));
     }
 
     foreach ($users as $user) {
         if ($user['username'] === $username) {
             if (password_verify($password, $user['password'])) {
                 http_response_code(200);
-                echo json_encode(array("message" => "Login successful."), JSON_PRETTY_PRINT);
-                $session_data = array("username" => $username, "role" => $user['role']);
+                echo json_encode(array("message" => "Login successful.", "user" => array("id" => $user['id'], "username" => $user['username'], "role" => $user['role'])), JSON_PRETTY_PRINT);
+                $session_data = array("id" => $user['id'], "username" => $username, "role" => $user['role']);
 
                 if (!file_exists($session_file)) {
                     file_put_contents($session_file, json_encode(array(), JSON_PRETTY_PRINT));
