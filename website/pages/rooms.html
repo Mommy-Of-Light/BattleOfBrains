@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Battle Of Brains | Rooms</title>
+    <link rel="stylesheet" href="../css/bootstrap.css">
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+</head>
+<body class="bg-light min-vh-100 d-flex align-items-center">
+    <main class="container">
+        <div class="row justify-content-center">
+            <div class="col-12 col-md-10 col-lg-8 col-xl-6">
+                <div class="card shadow-lg border-0 rounded-4 overflow-hidden">
+                    <div class="card-body p-4 p-md-5 text-center">
+                        <span class="badge text-bg-primary rounded-pill mb-3">Battle Of Brains</span>
+                        <h1 class="display-6 fw-bold mb-3">Rooms</h1>
+                        <p class="text-muted mb-4">Select a room to join or create a new one.</p>
+                        <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+                            <button id="createRoom" type="button" class="btn btn-primary btn-lg px-4">Create Room</button>
+                            <!-- <button id="joinRoom" type="button" class="btn btn-secondary btn-lg px-4">Join Room</button> -->
+                            <button id="back" type="button" class="btn btn-outline-secondary btn-lg px-4">Back</button>
+                        </div>
+                        <!-- Room cards will be dynamically added here and scrolled  -->
+                        <div id="roomsContainer" class="mt-4 overflow-auto" style="max-height: 300px;">
+                            <!-- Rooms will be dynamically added here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <script src="../js/main.js"></script>
+</body>
+</html>

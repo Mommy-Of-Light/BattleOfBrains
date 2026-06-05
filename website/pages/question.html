@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Battle Of Brains | Room <span id="roomName"></span> - Question <span id="questionNumber"></span></title>
+    <link rel="stylesheet" href="../css/bootstrap.css">
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+</head>
+<body class="bg-light min-vh-100 d-flex align-items-center">
+    <main class="container">
+        <div class="row justify-content-center">
+            <div class="col-12 col-md-10 col-lg-8 col-xl-6">
+                <div class="card shadow-lg border-0 rounded-4 overflow-hidden">
+                    <div class="card-body p-4 p-md-5 text-center">
+                        <span class="badge text-bg-primary rounded-pill mb-3">Battle Of Brains</span>
+                        <h1 class="display-6 fw-bold mb-3">Room <span id="roomTitle"></span></h1>
+                        <!-- Quiz area -->
+                        <div id="quizArea">
+                            <p class="text-muted mb-4">Question <span id="questionNumber"></span> of <span id="totalQuestions"></span></p>
+                            <div id="questionText" class="mb-4">
+                                <!-- Question text will be dynamically added here -->
+                            </div>
+                            <!-- Multiple choice options will be dynamically added here -->
+                            <div id="optionsList" class="mb-4">
+                                <!-- Options will be dynamically added here -->
+                            </div>
+                            <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+                                <button id="submitAnswer" type="button" class="btn btn-success btn-lg px-4">Submit Answer</button>
+                                <button id="stopGame" type="button" class="btn btn-warning btn-lg px-4" style="display:none">Stop Game</button>
+                                <button id="leaveGame" type="button" class="btn btn-danger btn-lg px-4">Leave Game</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <script src="../js/main.js"></script>
+</body>
+</html>

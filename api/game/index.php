@@ -6,11 +6,17 @@ require_once 'utils.php';
 header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json; charset=UTF-8");
 header("Access-Control-Allow-Methods: *, OPTIONS");
-header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
+header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With, X-User-Id");
+// prevent caching of API responses so clients always receive fresh state
+header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
+header("Pragma: no-cache");
+header("Expires: 0");
 
 $session = get_session();
 
-if (!isset($session['username'])) {
+// Allow unauthenticated GET (listing/fetching rooms) and OPTIONS (CORS preflight).
+// Require auth for mutating requests (POST/PUT/DELETE).
+if ($_SERVER['REQUEST_METHOD'] !== 'GET' && $_SERVER['REQUEST_METHOD'] !== 'OPTIONS' && !isset($session['username'])) {
     http_response_code(401);
     echo json_encode(["message" => "Unauthorized. Please log in."]);
     exit();

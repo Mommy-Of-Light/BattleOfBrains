@@ -19,9 +19,16 @@ if (isset($data['username']) && isset($data['password'])) {
         }
     }
 
-    $users[] = array("id" => count($users) + 1, "username" => $username, "password" => $password, "role" => "student");
+    $users[] = array("id" => count($users) + 1, "username" => $username, "password" => $password, "role" => "student", "score" => 0);
 
-    file_put_contents($db_file, json_encode($users, JSON_PRETTY_PRINT));
+    $json = json_encode($users, JSON_PRETTY_PRINT);
+    $tmp = $db_file . '.tmp';
+    if (file_put_contents($tmp, $json, LOCK_EX) === false) {
+        http_response_code(500);
+        echo json_encode(array("message" => "Failed to write users file."), JSON_PRETTY_PRINT);
+        exit();
+    }
+    rename($tmp, $db_file);
 
     http_response_code(201);
     echo json_encode(array("message" => "User registered successfully."), JSON_PRETTY_PRINT);

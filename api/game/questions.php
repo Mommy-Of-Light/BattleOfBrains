@@ -6,19 +6,31 @@ require_once 'utils.php';
 header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json; charset=UTF-8");
 header("Access-Control-Allow-Methods: *, OPTIONS");
-header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
+header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With, X-User-Id");
 
 $method = $_SERVER['REQUEST_METHOD'];
-$session = get_session();
 
-if (!isset($session['id'])) {
-    http_response_code(401);
-    echo json_encode(["message" => "Unauthorized. Please log in."]);
+// Allow preflight CORS requests to pass without authentication
+if ($method === 'OPTIONS') {
+    http_response_code(204);
     exit();
 }
 
-$id = $session['id'];
-$role = $session['role'];
+$session = get_session();
+
+// Allow GET requests without authentication. For mutating requests require a user id/role.
+if ($method !== 'GET') {
+    if (!isset($session['id'])) {
+        http_response_code(401);
+        echo json_encode(["message" => "Unauthorized. Please log in."]);
+        exit();
+    }
+    $id = $session['id'];
+    $role = $session['role'];
+} else {
+    $id = isset($session['id']) ? $session['id'] : null;
+    $role = isset($session['role']) ? $session['role'] : null;
+}
 
 if ($method === 'GET') {
     // View questions: /questions.php?roomID=xxx

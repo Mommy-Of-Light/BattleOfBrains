@@ -10,12 +10,16 @@ $users = [];
 if (file_exists($users_file)) {
     $users = json_decode(file_get_contents($users_file), true);
 } else {
-    file_put_contents($users_file, json_encode(array(), JSON_PRETTY_PRINT));
+    $json = json_encode(array(), JSON_PRETTY_PRINT);
+    $tmp = $users_file . '.tmp';
+    file_put_contents($tmp, $json, LOCK_EX);
+    rename($tmp, $users_file);
 }
 
 if ($userID) {
     foreach ($users as $user) {
-        if ($user['id'] === $userID) {
+        // compare as strings to avoid type-mismatch between ints and strings
+        if ((string)$user['id'] === (string)$userID) {
             http_response_code(200);
             echo json_encode($user, JSON_PRETTY_PRINT);
             exit();
